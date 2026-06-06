@@ -2,6 +2,7 @@
 
 uint16_t UR_data[128];
 uint16_t UX_data[128];
+char message[128]; // 定义一个足够大的缓冲区存放每行字符串
 
 volatile bool UR_complete = false;
 volatile bool UX_complete = false;

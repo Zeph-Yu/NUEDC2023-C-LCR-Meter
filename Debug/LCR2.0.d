@@ -86,7 +86,8 @@ LCR2.0.o: ../LCR2.0.c \
  D:/TI/SDK/mspm0_sdk_2_09_00_01/source/ti/driverlib/m0p/dl_systick.h \
  D:/CCS_workplace_2026_new/Test/System/System_State.h \
  D:/CCS_workplace_2026_new/Test/Hardware/oled.h \
- D:/CCS_workplace_2026_new/Test/Hardware/ADC.h
+ D:/CCS_workplace_2026_new/Test/Hardware/ADC.h \
+ D:/CCS_workplace_2026_new/Test/System/IQDemod.h
 syscfg/ti_msp_dl_config.h:
 D:/TI/SDK/mspm0_sdk_2_09_00_01/source/ti/devices/msp/msp.h:
 D:/TI/SDK/mspm0_sdk_2_09_00_01/source/ti/devices/DeviceFamily.h:
@@ -173,3 +174,4 @@ D:/TI/SDK/mspm0_sdk_2_09_00_01/source/ti/driverlib/m0p/dl_systick.h:
 D:/CCS_workplace_2026_new/Test/System/System_State.h:
 D:/CCS_workplace_2026_new/Test/Hardware/oled.h:
 D:/CCS_workplace_2026_new/Test/Hardware/ADC.h:
+D:/CCS_workplace_2026_new/Test/System/IQDemod.h:

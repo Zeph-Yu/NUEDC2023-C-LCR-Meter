@@ -49,18 +49,17 @@ int main(void)
     NVIC_EnableIRQ(ADC_UR_INST_INT_IRQN);
     NVIC_EnableIRQ(ADC_UX_INST_INT_IRQN);
 
-    OLED_ShowNum(0, 0, 12345, 5); // 在 OLED 上显示一个示例数字
-
     while (1)
     {
         switch(state)
         {
         //case STATE_SELECT_MODE : state_select_mode(); break;
         //case STATE_GENEXCITATION : state_genexcitation(); break;
-        //case STATE_STABLE_WAIT : state_stable_wait(); break;
+        case STATE_STABLE_WAIT : state_stable_wait(); break;
         case STATE_INIT_SAMPLING : state_init_sampling(); break;
         case STATE_SAMPLING : state_sampling(); break;
-        //case STATE_CALC : state_calc(); break;
+        case STATE_CALC : state_calc(); break;
+        case STATE_SHOWRESULT : state_showresult();break;
         default:break;
         }
     }

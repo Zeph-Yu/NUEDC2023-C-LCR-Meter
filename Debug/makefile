@@ -15,6 +15,7 @@ ORDERED_OBJS += \
 "./startup_mspm0g350x_ticlang.o" \
 "./Hardware/ADC.o" \
 "./Hardware/oled.o" \
+"./System/IQDemod.o" \
 "./System/System_State.o" \
 $(GEN_CMDS__FLAG) \
 -Wl,-ldevice.cmd.genlibs \
@@ -157,8 +158,8 @@ Test.txt: $(EXE_OUTPUTS)
 # Other Targets
 clean:
 	-$(RM) $(GEN_MISC_FILES__QUOTED)$(BIN_OUTPUTS__QUOTED)$(GEN_FILES__QUOTED)$(EXE_OUTPUTS__QUOTED)
-	-$(RM) "LCR2.0.o" "syscfg\ti_msp_dl_config.o" "startup_mspm0g350x_ticlang.o" "Hardware\ADC.o" "Hardware\oled.o" "System\System_State.o" 
-	-$(RM) "LCR2.0.d" "syscfg\ti_msp_dl_config.d" "startup_mspm0g350x_ticlang.d" "Hardware\ADC.d" "Hardware\oled.d" "System\System_State.d" 
+	-$(RM) "LCR2.0.o" "syscfg\ti_msp_dl_config.o" "startup_mspm0g350x_ticlang.o" "Hardware\ADC.o" "Hardware\oled.o" "System\IQDemod.o" "System\System_State.o" 
+	-$(RM) "LCR2.0.d" "syscfg\ti_msp_dl_config.d" "startup_mspm0g350x_ticlang.d" "Hardware\ADC.d" "Hardware\oled.d" "System\IQDemod.d" "System\System_State.d" 
 	-$(RMDIR) $(GEN_MISC_DIRS__QUOTED)
 	-@echo 'Finished clean'
 	-@echo ' '
