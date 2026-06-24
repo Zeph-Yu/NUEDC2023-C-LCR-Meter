@@ -19,7 +19,7 @@ Debug/
 *.pkl
 *.bak
 
-# IDE/editor settings
+# IDE/editor settings and workspace configs
 .vscode/
 .settings/
 .theia/
@@ -27,6 +27,11 @@ Debug/
 *.swo
 *.tmp
 *.DS_Store
+
+# CCS workspace and project files
+.ccsproject
+.cproject
+.project
 
 # Generated linker and build files
 syscfg/device.cmd.genlibs
