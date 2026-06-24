@@ -41,5 +41,9 @@ syscfg/ti_msp_dl_config.d
 # Ignore local workspace files
 front_workplace.theia-workspace
 
+# Ignore tool/build directories
+.clangd/
+targetConfigs/
+
 # Optional: ignore any generated object directories
 */Debug/
