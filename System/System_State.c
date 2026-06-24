@@ -1,11 +1,11 @@
 #include "System_State.h"
 
-static IQResult UR_IQ;
-static IQResult UX_IQ;
-static ZResult Z_Data;
-static CResult C_Data;
+IQResult UR_IQ;
+IQResult UX_IQ;
+ZResult Z_Data;
+CResult C_Data;
 
-volatile SystemState state = STATE_STABLE_WAIT;
+volatile SystemState state = STATE_INIT_SAMPLING;
 
 void state_stable_wait(void)
 {
@@ -35,8 +35,9 @@ void state_sampling(void)
         UR_complete = false;
         UX_complete = false;
         delay_cycles(CPUCLK_FREQ);
-        /*
-        for (int i = 0; i < 128; i++)
+        
+        
+        for (int i = 0; i < 256; i++)
         {
             // 1. 严格按照参考公式，分别计算 UX 和 UR 的真实电压值
             // 注意：用 4095.0f 确保进行浮点数除法，防止精度丢失
@@ -54,7 +55,8 @@ void state_sampling(void)
                 DL_UART_transmitDataBlocking(UART_ADC_INST, message[j]);
             }
         }   
-        */
+        
+        
         state = STATE_CALC;
     }
 

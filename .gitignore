@@ -1,0 +1,40 @@
+# Ignore CCS build artifacts and temporary files
+Debug/
+*.d
+*.o
+*.obj
+*.opt
+*.bin
+*.elf
+*.map
+*.out
+*.log
+*.hex
+
+# CCS project cache and backup files
+*.cmd
+*.tcf
+*.lst
+*.sym
+*.pkl
+*.bak
+
+# IDE/editor settings
+.vscode/
+.settings/
+.theia/
+*.swp
+*.swo
+*.tmp
+*.DS_Store
+
+# Generated linker and build files
+syscfg/device.cmd.genlibs
+syscfg/ti_msp_dl_config.c
+syscfg/ti_msp_dl_config.d
+
+# Ignore local workspace files
+front_workplace.theia-workspace
+
+# Optional: ignore any generated object directories
+*/Debug/

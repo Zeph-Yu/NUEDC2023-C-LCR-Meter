@@ -21,6 +21,10 @@ typedef enum
 extern volatile SystemState state;
 extern volatile bool UR_complete;
 extern volatile bool UX_complete;
+extern IQResult UR_IQ;
+extern IQResult UX_IQ;
+extern ZResult Z_Data;
+extern CResult C_Data;
 
 void state_stable_wait(void);
 void state_init_sampling(void);
