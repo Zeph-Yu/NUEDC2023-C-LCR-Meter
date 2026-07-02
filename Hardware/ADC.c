@@ -14,11 +14,13 @@ void DMA_Init(void)
     DL_DMA_setSrcAddr(DMA, DMA_UR_CHAN_ID, (uint32_t)DL_ADC12_getFIFOAddress(ADC_UR_INST));
     DL_DMA_setDestAddr(DMA, DMA_UR_CHAN_ID, (uint32_t)&UR_data[0]);
     DL_DMA_setTransferSize(DMA, DMA_UR_CHAN_ID, 128);
+
     DL_DMA_enableChannel(DMA, DMA_UR_CHAN_ID);
     // 其次是 DMA_UX
     DL_DMA_setSrcAddr(DMA, DMA_UX_CHAN_ID, (uint32_t)DL_ADC12_getFIFOAddress(ADC_UX_INST));
     DL_DMA_setDestAddr(DMA, DMA_UX_CHAN_ID, (uint32_t)&UX_data[0]);
     DL_DMA_setTransferSize(DMA, DMA_UX_CHAN_ID, 128);
+    
     DL_DMA_enableChannel(DMA, DMA_UX_CHAN_ID);
 }
 
