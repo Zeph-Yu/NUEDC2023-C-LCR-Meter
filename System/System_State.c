@@ -43,7 +43,7 @@ void state_sampling(void)
         // ============================================================
         OLED_Display_GB2312_string(2, 2, "Sending to VOFA+");
 
-        for (int i = 0; i < 128; i++)   // DMA 实际传输 128 个点
+        for (int i = IQ_SKIP; i < IQ_SKIP + IQ_SAMPLES; i++)   // 跳过第一个周期
         {
             float ux_voltage = (UX_data[i] * 3.3f) / 4095.0f;
             float ur_voltage = (UR_data[i] * 3.3f) / 4095.0f;
@@ -70,8 +70,8 @@ void state_calc(void)
 {
     OLED_Display_GB2312_string(0,4,"Calculating...");
     delay_cycles(CPUCLK_FREQ);
-    UX_IQ = IQ_Demodulate(UX_data, IQ_SAMPLES); //解调待测元件ADC数据
-    UR_IQ = IQ_Demodulate(UR_data, IQ_SAMPLES); //解调分压电阻ADC数据
+    UX_IQ = IQ_Demodulate(&UX_data[IQ_SKIP], IQ_SAMPLES); //解调待测元件ADC数据(跳过第1周期)
+    UR_IQ = IQ_Demodulate(&UR_data[IQ_SKIP], IQ_SAMPLES); //解调分压电阻ADC数据(跳过第1周期)
     Z_Data = IQ_CalcImpedance(UX_IQ.I, UX_IQ.Q, UR_IQ.I, UR_IQ.Q); //计算待测元件实部虚部
     C_Data = IQ_CalcCapacitance(&Z_Data); //计算电容容值和损耗角正切值
     state = STATE_SHOWRESULT;

@@ -94,8 +94,8 @@ const double IQ_sin_table[IQ_N] = {
 };
 
 // 归一化因子：I/Q 累加值 ÷ (周期数 × N/2) 得到信号幅值 (V)
-// 3 个完整周期 × 40 点/周期，同频积分 Σ cos² = N_cycles × N/2 = 60
-#define IQ_NORM_FACTOR  ((double)(IQ_N_CYCLES) * IQ_N / 2.0)  // = 60.0
+// 5 个完整周期 × 40 点/周期，同频积分 Σ cos² = N_cycles × N/2 = 100
+#define IQ_NORM_FACTOR  ((double)(IQ_N_CYCLES) * IQ_N / 2.0)  // = 100.0
 
 // ===================================================================
 // IQ 解调函数（真实电压版）

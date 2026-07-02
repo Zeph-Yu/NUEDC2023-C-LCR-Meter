@@ -9,8 +9,9 @@
 // N     = f_s / f_exc = 40 (每激励周期采样点数)
 
 #define IQ_N           40      // sin/cos 查找表长度
-#define IQ_SAMPLES     240     // 总采样点数 = 3个完整激励周期
-#define IQ_N_CYCLES    3       // 激励周期数
+#define IQ_SKIP        40      // 舍弃第一个周期 (ADC启动瞬态)
+#define IQ_SAMPLES     200     // 有效采样点数 = 5个完整激励周期
+#define IQ_N_CYCLES    5       // 激励周期数 (200点 / 40点每周期)
 #define ADC_BITS       12      // ADC 分辨率
 #define ADC_MAX        4096    // 12-bit ADC 满量程 (2^12)
 #define ADC_VREF       3.3     // ADC 参考电压 (V)
