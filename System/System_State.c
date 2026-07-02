@@ -37,24 +37,28 @@ void state_sampling(void)
         delay_cycles(CPUCLK_FREQ);
         
         
-        for (int i = 0; i < 256; i++)
+        // ============================================================
+        // VOFA+ FireWater 协议：逗号分隔，换行结尾 (只用 \n)
+        // 格式: UX_voltage,UR_voltage\n
+        // ============================================================
+        OLED_Display_GB2312_string(2, 2, "Sending to VOFA+");
+
+        for (int i = 0; i < 128; i++)   // DMA 实际传输 128 个点
         {
-            // 1. 严格按照参考公式，分别计算 UX 和 UR 的真实电压值
-            // 注意：用 4095.0f 确保进行浮点数除法，防止精度丢失
             float ux_voltage = (UX_data[i] * 3.3f) / 4095.0f;
             float ur_voltage = (UR_data[i] * 3.3f) / 4095.0f;
-            
-            // 2. 依照参考格式，将数据打包进 message 缓冲区
-            // 这里加上了索引 [i]，并在同一行输出，方便你在串口助手里对比查看
-            snprintf(message, sizeof(message), "i:%d; UX_raw:%d; UX_volt:%.4fV; UR_raw:%d; UR_volt:%.4fV;\n", 
-             i, UX_data[i], ux_voltage, UR_data[i], ur_voltage);
-            
-            // 3. 严格按照参考的 for 循环方式，逐个字符阻塞发送
+
+            // FireWater 格式：逗号分隔，\n 结尾
+            snprintf(message, sizeof(message), "%.4f,%.4f\n",
+                     ux_voltage, ur_voltage);
+
             for (int j = 0; message[j] != '\0'; j++)
             {
                 DL_UART_transmitDataBlocking(UART_ADC_INST, message[j]);
             }
-        }   
+        }
+
+        OLED_Display_GB2312_string(2, 2, "VOFA+ Send Done ");
         
         
         state = STATE_CALC;
