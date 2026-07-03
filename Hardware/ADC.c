@@ -1,7 +1,7 @@
 #include "ADC.h"
 
-uint16_t UR_data[256];
-uint16_t UX_data[256];
+uint16_t UR_data[ADC_BUF_SIZE];
+uint16_t UX_data[ADC_BUF_SIZE];
 char message[128]; // 定义一个足够大的缓冲区存放每行字符串
 
 volatile bool UR_complete = false;
@@ -13,13 +13,13 @@ void DMA_Init(void)
     // 首先是 DMA_UR
     DL_DMA_setSrcAddr(DMA, DMA_UR_CHAN_ID, (uint32_t)DL_ADC12_getFIFOAddress(ADC_UR_INST));
     DL_DMA_setDestAddr(DMA, DMA_UR_CHAN_ID, (uint32_t)&UR_data[0]);
-    DL_DMA_setTransferSize(DMA, DMA_UR_CHAN_ID, 128);
+    DL_DMA_setTransferSize(DMA, DMA_UR_CHAN_ID, ADC_BUF_SIZE / 2);
 
     DL_DMA_enableChannel(DMA, DMA_UR_CHAN_ID);
     // 其次是 DMA_UX
     DL_DMA_setSrcAddr(DMA, DMA_UX_CHAN_ID, (uint32_t)DL_ADC12_getFIFOAddress(ADC_UX_INST));
     DL_DMA_setDestAddr(DMA, DMA_UX_CHAN_ID, (uint32_t)&UX_data[0]);
-    DL_DMA_setTransferSize(DMA, DMA_UX_CHAN_ID, 128);
+    DL_DMA_setTransferSize(DMA, DMA_UX_CHAN_ID, ADC_BUF_SIZE / 2);
     
     DL_DMA_enableChannel(DMA, DMA_UX_CHAN_ID);
 }
