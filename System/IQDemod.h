@@ -15,9 +15,9 @@
 #define ADC_BITS       12      // ADC 分辨率
 #define ADC_MAX        4096    // 12-bit ADC 满量程 (2^12)
 #define ADC_VREF       3.3     // ADC 参考电压 (V)
-#define ADC_DC_OFFSET  1241    // ADC 直流偏置编码值 (对应约 1.0V)
+#define ADC_DC_OFFSET  1857    // ADC 直流偏置编码值 (对应约 1.5V)
 
-// 直流偏置对应的真实电压 (V)  = 1241 / 4096 × 3.3 ≈ 0.9998 V
+// 直流偏置对应的真实电压 (V)  = 1857 / 4096 × 3.3 ≈ 1.5
 #define VDC_OFFSET      ((double)ADC_DC_OFFSET * ADC_VREF / ADC_MAX)
 
 // 分压电阻参数 (单位: Ω)
