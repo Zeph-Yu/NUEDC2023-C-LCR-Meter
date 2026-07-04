@@ -10,8 +10,9 @@
 
 #define IQ_N           40      // sin/cos 查找表长度
 #define IQ_SKIP        40      // 舍弃第一个周期 (ADC启动瞬态)
-#define IQ_SAMPLES     400     // 有效采样点数 = 10个完整激励周期
-#define IQ_N_CYCLES    10      // 激励周期数 (400点 / 40点每周期)
+#define IQ_SAMPLES     2000    // 有效采样点数 = 50个完整激励周期 (参与解调)
+#define IQ_N_CYCLES    50      // 激励周期数 (2000点 / 40点每周期)
+#define IQ_VOFA        400     // VOFA+显示前10个周期 (显示太多会卡串口)
 #define ADC_BITS       12      // ADC 分辨率
 #define ADC_MAX        4096    // 12-bit ADC 满量程 (2^12)
 #define ADC_VREF       3.3     // ADC 参考电压 (V)
@@ -22,7 +23,12 @@
 
 // 分压电阻参数 (单位: Ω)
 #define R_REF          1500.0  // 分压电阻 R_ref = 1.5 kΩ
-#define R_S            1000.0  // 扩展量程电阻 Rs = 1 kΩ
+#define R_S            0.0     // 扩展量程电阻 Rs (已通过标定修正)
+
+// 短路标定参数 (单位: Ω)
+// 短路 DUT 端，记录测得的 Zx 实部/虚部，作为系统残差
+#define Z_RE_OFFSET    43.0    // 实部残差 (信号发生器输出阻抗+引线电阻)
+#define Z_IM_OFFSET    -5.0    // 虚部残差 (系统相位偏移)
 
 // ===== IQ 解调结果 =====
 // IQ 解调将采样信号分别投影到 cos(100kHz·t) 和 sin(100kHz·t) 方向，

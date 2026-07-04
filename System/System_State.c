@@ -43,7 +43,7 @@ void state_sampling(void)
         // ============================================================
         OLED_Display_GB2312_string(2, 2, "Sending to VOFA+");
 
-        for (int i = IQ_SKIP; i < IQ_SKIP + IQ_SAMPLES; i++)   // 跳过第一个周期
+        for (int i = IQ_SKIP; i < IQ_SKIP + IQ_VOFA; i++)   // 跳过第一个周期，只发前10周期到VOFA+
         {
             float ux_voltage = (UX_data[i] * 3.3f) / 4095.0f;
             float ur_voltage = (UR_data[i] * 3.3f) / 4095.0f;
@@ -73,6 +73,9 @@ void state_calc(void)
     UX_IQ = IQ_Demodulate(&UX_data[IQ_SKIP], IQ_SAMPLES); //解调待测元件ADC数据(跳过第1周期)
     UR_IQ = IQ_Demodulate(&UR_data[IQ_SKIP], IQ_SAMPLES); //解调分压电阻ADC数据(跳过第1周期)
     Z_Data = IQ_CalcImpedance(UX_IQ.I, UX_IQ.Q, UR_IQ.I, UR_IQ.Q); //计算待测元件实部虚部
+    // 短路标定：减去系统残差
+    Z_Data.real -= Z_RE_OFFSET;
+    Z_Data.imag -= Z_IM_OFFSET;
     C_Data = IQ_CalcCapacitance(&Z_Data); //计算电容容值和损耗角正切值
     state = STATE_SHOWRESULT;
 }   
@@ -110,6 +113,12 @@ void state_showresult(void)
         float d = C_Data.d_ppm / 1000000.0f;
         snprintf(message, sizeof(message), "D: %.4f", d);
         OLED_Display_GB2312_string(0, 2, message);
+
+        // DEBUG: Z 实部虚部
+        int32_t r = (int32_t)Z_Data.real;
+        int32_t i = (int32_t)Z_Data.imag;
+        snprintf(message, sizeof(message), "Re:%ld Im:%ld", (long)r, (long)i);
+        OLED_Display_GB2312_string(0, 4, message);
     }
     state = STATE_STABLE_WAIT;
 }
