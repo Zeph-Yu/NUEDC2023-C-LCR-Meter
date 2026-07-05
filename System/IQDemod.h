@@ -22,13 +22,13 @@
 #define VDC_OFFSET      ((double)ADC_DC_OFFSET * ADC_VREF / ADC_MAX)
 
 // 分压电阻参数 (单位: Ω)
-#define R_REF          1500.0  // 分压电阻 R_ref = 1.5 kΩ
+#define R_REF          1300.0  // 分压电阻 R_ref = 1.3 kΩ
 #define R_S            0.0     // 扩展量程电阻 Rs (已通过标定修正)
 
 // 短路标定参数 (单位: Ω)
 // 短路 DUT 端，记录测得的 Zx 实部/虚部，作为系统残差
-#define Z_RE_OFFSET    43.0    // 实部残差 (信号发生器输出阻抗+引线电阻)
-#define Z_IM_OFFSET    -5.0    // 虚部残差 (系统相位偏移)
+#define Z_RE_OFFSET    1002.0  // 实部残差 (Rs≈1kΩ+引线) [R_ref=1300Ω]
+#define Z_IM_OFFSET    -4.0    // 虚部残差 (系统相位偏移)
 
 // ===== IQ 解调结果 =====
 // IQ 解调将采样信号分别投影到 cos(100kHz·t) 和 sin(100kHz·t) 方向，
