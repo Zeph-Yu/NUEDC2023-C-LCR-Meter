@@ -10,9 +10,9 @@
 
 #define IQ_N           40      // sin/cos 查找表长度
 #define IQ_SKIP        40      // 舍弃第一个周期 (ADC启动瞬态)
-#define IQ_SAMPLES     2000    // 有效采样点数 = 50个完整激励周期 (参与解调)
-#define IQ_N_CYCLES    50      // 激励周期数 (2000点 / 40点每周期)
-#define IQ_VOFA        400     // VOFA+显示前10个周期 (显示太多会卡串口)
+#define IQ_SAMPLES     4000    // 有效采样点数 = 100个完整激励周期 (参与解调)
+#define IQ_N_CYCLES    100     // 激励周期数 (4000点 / 40点每周期)
+#define IQ_VOFA        400     // VOFA+显示前10个周期
 #define ADC_BITS       12      // ADC 分辨率
 #define ADC_MAX        4096    // 12-bit ADC 满量程 (2^12)
 #define ADC_VREF       3.3     // ADC 参考电压 (V)
@@ -22,13 +22,13 @@
 #define VDC_OFFSET      ((double)ADC_DC_OFFSET * ADC_VREF / ADC_MAX)
 
 // 分压电阻参数 (单位: Ω)
-#define R_REF          1300.0  // 分压电阻 R_ref = 1.3 kΩ
+#define R_REF          51.0    // 分压电阻 R_ref = 51 Ω
 #define R_S            0.0     // 扩展量程电阻 Rs (已通过标定修正)
 
 // 短路标定参数 (单位: Ω)
 // 短路 DUT 端，记录测得的 Zx 实部/虚部，作为系统残差
-#define Z_RE_OFFSET    1002.0  // 实部残差 (Rs≈1kΩ+引线) [R_ref=1300Ω]
-#define Z_IM_OFFSET    -4.0    // 虚部残差 (系统相位偏移)
+#define Z_RE_OFFSET    51.0    // 实部残差 = Rs
+#define Z_IM_OFFSET    0.0     // 虚部残差 (系统相位偏移)
 
 // ===== IQ 解调结果 =====
 // IQ 解调将采样信号分别投影到 cos(100kHz·t) 和 sin(100kHz·t) 方向，
@@ -70,7 +70,7 @@ typedef struct
 // 公式:
 //   Z_total = R_ref × Vx / VR = R_ref × (a+bj) / (c+dj)
 //   Re(Z) = R_ref × (ac + bd) / (c² + d²)
-//   Im(Z) = R_ref × (bc - ad) / (c² + d²)
+//   Im(Z) = R_ref × (ad - bc) / (c² + d²)   ← 感性为正，容性为负
 //   Zx     = Z_total - Rs       （Rs 只影响实部）
 //
 // 返回 ZResult，实部虚部单位均为 Ω
@@ -95,5 +95,26 @@ typedef struct
 // 返回 CResult：c_pF 单位 pF，d_ppm 单位 10⁻⁶
 // 若 |Im(Z)| == 0，c_pF 和 d_ppm 均返回 0
 CResult IQ_CalcCapacitance(const ZResult *z);
+
+// ===== 电感测量结果 =====
+typedef struct
+{
+    int32_t l_nH;   // 电感值，单位 nH（例如 1000000 表示 1mH）
+    int32_t q_ppm;  // 品质因数 Q × 10⁶（例如 50000 表示 Q=0.05）
+} LResult;
+
+// 根据复阻抗计算电感值和品质因数 Q
+//
+// 公式:
+//   L(H)  = Im / ω                  ω = 2π × 100kHz
+//   L(nH) = L(H) × 10^9 = L_CONSTANT × Im
+//   Q     = Im / Re                （无量纲）
+//   Q_ppm = Q × 10^6
+//
+// z:  IQ_CalcImpedance 的返回结果（单位 Ω）
+//
+// 返回 LResult：l_nH 单位 nH，q_ppm 单位 10⁻⁶
+// 若 Im(Z) ≤ 0（非感性），l_nH 和 q_ppm 均返回 0
+LResult IQ_CalcInductance(const ZResult *z);
 
 #endif // __IQ_DEMOD_H

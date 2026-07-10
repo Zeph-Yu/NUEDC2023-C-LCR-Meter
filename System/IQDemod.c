@@ -94,8 +94,8 @@ const double IQ_sin_table[IQ_N] = {
 };
 
 // 归一化因子：I/Q 累加值 ÷ (周期数 × N/2) 得到信号幅值 (V)
-// 50 个完整周期 × 40 点/周期，同频积分 Σ cos² = N_cycles × N/2 = 1000
-#define IQ_NORM_FACTOR  ((double)(IQ_N_CYCLES) * IQ_N / 2.0)  // = 1000.0
+// 100 个完整周期 × 40 点/周期，同频积分 Σ cos² = N_cycles × N/2 = 2000
+#define IQ_NORM_FACTOR  ((double)(IQ_N_CYCLES) * IQ_N / 2.0)  // = 2000.0
 
 // ===================================================================
 // IQ 解调函数（真实电压版）
@@ -153,7 +153,7 @@ IQResult IQ_Demodulate(const uint16_t data[], int count)
 //   Z_total = R_ref × Vx / VR = R_ref × (a + bj) / (c + dj)
 //
 //   Re(Z_total) = R_ref × (ac + bd) / (c² + d²)
-//   Im(Z_total) = R_ref × (bc - ad) / (c² + d²)
+//   Im(Z_total) = R_ref × (ad - bc) / (c² + d²)   感性为正，容性为负
 //
 //   Re(Zx) = Re(Z_total) - Rs    （Rs 串联电阻，只影响实部）
 //   Im(Zx) = Im(Z_total)
@@ -173,7 +173,7 @@ ZResult IQ_CalcImpedance(double a, double b,
     double ad = a * d;
 
     double num_real = ac + bd;   // 实部分子
-    double num_imag = bc - ad;   // 虚部分子
+    double num_imag = ad - bc;   // 虚部分子 (ad-bc: 感性为正，容性为负)
 
     // 分母 c² + d²
     double den = c * c + d * d;
@@ -195,9 +195,7 @@ ZResult IQ_CalcImpedance(double a, double b,
     // 4. Re(Zx) = Re(Z_total) - Rs（去掉串联电阻）
     double re_zx = re_total - R_S;
 
-    // 若计算得负电阻（通道反相），取绝对值
-    if (re_zx < 0.0) re_zx = -re_zx;
-
+    // 保留原始符号，不再强制取绝对值
     result.real = re_zx;
     result.imag = im_total;      // Rs 不影响虚部
 
@@ -244,4 +242,46 @@ CResult IQ_CalcCapacitance(const ZResult *z)
     cr.d_ppm = (int32_t)(abs_real * 1000000.0 / abs_imag);
 
     return cr;
+}
+
+// ===================================================================
+// 根据复阻抗计算电感值和品质因数 Q
+//
+// 公式:
+//   L(H)  = Im / ω                ω = 2π × 100kHz
+//   L(nH) = L(H) × 10^9 = L_CONSTANT × Im
+//   Q     = Im / Re              （无量纲）
+//   Q_ppm = Q × 10^6
+//
+// 注意:
+// - Im > 0 为感性，Im ≤ 0 判定为非感性元件
+// - Q 值计算保留符号，正 Q 表示感性元件正常
+// ===================================================================
+
+// L_CONSTANT = 10^9 / ω = 10^9 / (2π × 100000) ≈ 1591.55
+// L(nH) = L_CONSTANT × Im_Ω
+#define L_CONSTANT_NH   1591.549
+
+LResult IQ_CalcInductance(const ZResult *z)
+{
+    LResult lr;
+
+    // 感性元件 Im > 0（容性 Im < 0）
+    if (z->imag <= 0.0) {
+        lr.l_nH  = 0;
+        lr.q_ppm = 0;
+        return lr;
+    }
+
+    // 电感值 L(nH) = L_CONSTANT × Im
+    lr.l_nH = (int32_t)(L_CONSTANT_NH * z->imag);
+
+    // 品质因数 Q = Im / Re（保留符号）
+    if (z->real != 0.0) {
+        lr.q_ppm = (int32_t)(z->imag * 1000000.0 / z->real);
+    } else {
+        lr.q_ppm = 0;
+    }
+
+    return lr;
 }
