@@ -203,7 +203,7 @@ $$A = 2\sqrt{I^2 + Q^2}$$
 
 **相位**：
 
-$$\phi = \operatorname{atan2}(Q,\; I)$$
+$$\phi = \mathrm{atan2}(Q,\; I)$$
 
 ---
 
@@ -226,30 +226,30 @@ $$Z_x = R_{\text{ref}} \cdot \frac{V_x}{V_r} = R_{\text{ref}} \cdot \frac{I_x + 
 
 展开得实部和虚部：
 
-$$\operatorname{Re}(Z_x) = R_{\text{ref}} \cdot \frac{I_x I_r + Q_x Q_r}{I_r^2 + Q_r^2}$$
+$$\mathrm{Re}(Z_x) = R_{\text{ref}} \cdot \frac{I_x I_r + Q_x Q_r}{I_r^2 + Q_r^2}$$
 
-$$\operatorname{Im}(Z_x) = R_{\text{ref}} \cdot \frac{Q_x I_r - I_x Q_r}{I_r^2 + Q_r^2}$$
+$$\mathrm{Im}(Z_x) = R_{\text{ref}} \cdot \frac{Q_x I_r - I_x Q_r}{I_r^2 + Q_r^2}$$
 
 > 注：实际代码中采用 $ad - bc$ 形式（$a=I_x,\; b=Q_x,\; c=I_r,\; d=Q_r$），
 > 感性 Im 为正，容性 Im 为负。
 
 由复阻抗 $Z_x$ 可计算：
 
-**电容**（容性，$\operatorname{Im} < 0$）：
+**电容**（容性，$\mathrm{Im} < 0$）：
 
-$$C = \frac{1}{\omega \cdot |\operatorname{Im}(Z_x)|}$$
+$$C = \frac{1}{\omega \cdot |\mathrm{Im}(Z_x)|}$$
 
-**电感**（感性，$\operatorname{Im} > 0$）：
+**电感**（感性，$\mathrm{Im} > 0$）：
 
-$$L = \frac{|\operatorname{Im}(Z_x)|}{\omega}$$
+$$L = \frac{|\mathrm{Im}(Z_x)|}{\omega}$$
 
 **损耗角正切**：
 
-$$D = \frac{\operatorname{Re}(Z_x)}{|\operatorname{Im}(Z_x)|}$$
+$$D = \frac{\mathrm{Re}(Z_x)}{|\mathrm{Im}(Z_x)|}$$
 
 **品质因数**：
 
-$$Q = \frac{|\operatorname{Im}(Z_x)|}{\operatorname{Re}(Z_x)}$$
+$$Q = \frac{|\mathrm{Im}(Z_x)|}{\mathrm{Re}(Z_x)}$$
 
 ---
 

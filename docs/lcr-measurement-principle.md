@@ -65,49 +65,49 @@ $$Z_{total} = R_{ref} \cdot \frac{V_x}{V_r} = R_{ref} \cdot \frac{a + bj}{c + dj
 复数除法展开：
 
 $$\begin{aligned}
-\operatorname{Re}(Z_{total}) &= R_{ref} \cdot \frac{ac + bd}{c^2 + d^2} \\[8pt]
-\operatorname{Im}(Z_{total}) &= R_{ref} \cdot \frac{ad - bc}{c^2 + d^2}
+\mathrm{Re}(Z_{total}) &= R_{ref} \cdot \frac{ac + bd}{c^2 + d^2} \\[8pt]
+\mathrm{Im}(Z_{total}) &= R_{ref} \cdot \frac{ad - bc}{c^2 + d^2}
 \end{aligned}$$
 
 减去串联电阻得到 DUT 阻抗：
 
 $$\begin{aligned}
-\operatorname{Re}(Z_{DUT}) &= \operatorname{Re}(Z_{total}) - R_s \\
-\operatorname{Im}(Z_{DUT}) &= \operatorname{Im}(Z_{total})
+\mathrm{Re}(Z_{DUT}) &= \mathrm{Re}(Z_{total}) - R_s \\
+\mathrm{Im}(Z_{DUT}) &= \mathrm{Im}(Z_{total})
 \end{aligned}$$
 
-> **符号约定**：采用 $ad - bc$ 形式，感性元件 $\operatorname{Im} > 0$，容性元件 $\operatorname{Im} < 0$。
+> **符号约定**：采用 $ad - bc$ 形式，感性元件 $\mathrm{Im} > 0$，容性元件 $\mathrm{Im} < 0$。
 > 这一约定取决于 IQ 解调时参考信号的相位定义，不同实现可能符号相反。
 
 ---
 
 ## 4. 从阻抗到元件值
 
-### 4.1 电容（$\operatorname{Im} < 0$）
+### 4.1 电容（$\mathrm{Im} < 0$）
 
-$$C = \frac{1}{\omega \cdot |\operatorname{Im}(Z_{DUT})|}
-= \frac{1}{2\pi \cdot 100\text{kHz} \cdot |\operatorname{Im}|}$$
+$$C = \frac{1}{\omega \cdot |\mathrm{Im}(Z_{DUT})|}
+= \frac{1}{2\pi \cdot 100\text{kHz} \cdot |\mathrm{Im}|}$$
 
 电容值常数（代码中使用）：
 
-$$C(\text{pF}) = \frac{1591549}{|\operatorname{Im}(\Omega)|}$$
+$$C(\text{pF}) = \frac{1591549}{|\mathrm{Im}(\Omega)|}$$
 
 损耗角正切：
 
-$$D = \frac{\operatorname{Re}(Z_{DUT})}{|\operatorname{Im}(Z_{DUT})|}$$
+$$D = \frac{\mathrm{Re}(Z_{DUT})}{|\mathrm{Im}(Z_{DUT})|}$$
 
-### 4.2 电感（$\operatorname{Im} > 0$）
+### 4.2 电感（$\mathrm{Im} > 0$）
 
-$$L = \frac{\operatorname{Im}(Z_{DUT})}{\omega}
-= \frac{\operatorname{Im}(Z_{DUT})}{2\pi \cdot 100\text{kHz}}$$
+$$L = \frac{\mathrm{Im}(Z_{DUT})}{\omega}
+= \frac{\mathrm{Im}(Z_{DUT})}{2\pi \cdot 100\text{kHz}}$$
 
 电感值常数（代码中使用）：
 
-$$L(\text{nH}) = 1591.55 \times \operatorname{Im}(\Omega)$$
+$$L(\text{nH}) = 1591.55 \times \mathrm{Im}(\Omega)$$
 
 品质因数：
 
-$$Q = \frac{\operatorname{Im}(Z_{DUT})}{\operatorname{Re}(Z_{DUT})}$$
+$$Q = \frac{\mathrm{Im}(Z_{DUT})}{\mathrm{Re}(Z_{DUT})}$$
 
 ---
 
@@ -125,8 +125,8 @@ $$Q = \frac{\operatorname{Im}(Z_{DUT})}{\operatorname{Re}(Z_{DUT})}$$
 
 ### 原理
 
-- 短路时 $\operatorname{Re}$ 反映 $R_s$ + 引线电阻
-- 短路时 $\operatorname{Im}$ 反映系统相位偏移（理想为 0）
+- 短路时 $\mathrm{Re}$ 反映 $R_s$ + 引线电阻
+- 短路时 $\mathrm{Im}$ 反映系统相位偏移（理想为 0）
 - 这两个偏移是**固定的系统误差**，对所有测量影响一致，减法消除
 
 ---
