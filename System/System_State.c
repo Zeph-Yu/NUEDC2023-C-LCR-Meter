@@ -7,6 +7,25 @@ CResult C_Data;
 
 volatile SystemState state = STATE_INIT_SAMPLING;
 
+void state_select_mode (void)
+{
+    OLED_Clear();
+    OLED_Display_GB2312_string(0, 0, "Select Mode:");
+    OLED_Display_GB2312_string(0, 2, "PB21: Sampling");
+    OLED_Display_GB2312_string(0, 4, "PA18: Excitation");
+    
+    while (state == STATE_SELECT_MODE)
+    {
+        // 等待按键中断改变状态
+        __WFI(); // 进入低功耗等待中断
+    }
+}
+
+void state_genexcitation(void)
+{
+
+}
+
 void state_stable_wait(void)
 {
     delay_cycles(CPUCLK_FREQ);
@@ -124,6 +143,7 @@ void state_showresult(void)
 }
 
 // ===== 按键中断 =====
+/*
 void GROUP1_IRQHandler(void)
 {
     switch(DL_Interrupt_getPendingGroup(DL_INTERRUPT_GROUP_1))
@@ -152,4 +172,4 @@ void GROUP1_IRQHandler(void)
              break;
     }
 }
-
+*/

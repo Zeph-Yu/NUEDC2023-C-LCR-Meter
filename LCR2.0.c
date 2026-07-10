@@ -35,6 +35,7 @@
 #include "System_State.h"
 #include "oled.h"
 #include "ADC.h"
+#include "Key.h"
 
 int main(void)
 {
@@ -44,10 +45,12 @@ int main(void)
     OLED_Init();
     OLED_Clear();
     // 使能模块中断
-    NVIC_EnableIRQ(GPIOB_INT_IRQn);
-    NVIC_EnableIRQ(GPIOA_INT_IRQn);
     NVIC_EnableIRQ(ADC_UR_INST_INT_IRQN);
     NVIC_EnableIRQ(ADC_UX_INST_INT_IRQN);
+    NVIC_EnableIRQ(KeyScan_TIMER_INST_INT_IRQN);
+    
+    //开启按键扫描
+    DL_Timer_startCounter(KeyScan_TIMER_INST);
 
     while (1)
     {
@@ -62,5 +65,14 @@ int main(void)
         case STATE_SHOWRESULT : state_showresult();break;
         default:break;
         }
+    }
+}
+
+//按键扫描定时器
+void KeyScan_TIMER_INST_IRQHandler(void)
+{
+    if(DL_Timer_getPendingInterrupt(KeyScan_TIMER_INST) == DL_TIMER_IIDX_ZERO)
+    {
+        Key_Tick();
     }
 }
