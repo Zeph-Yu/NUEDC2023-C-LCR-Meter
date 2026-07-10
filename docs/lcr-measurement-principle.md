@@ -86,11 +86,11 @@ $$\begin{aligned}
 ### 4.1 电容（$\mathrm{Im} \lt 0$）
 
 $$C = \frac{1}{\omega \cdot |\mathrm{Im}(Z_{DUT})|}
-= \frac{1}{2\pi \cdot 100\text{kHz} \cdot |\mathrm{Im}|}$$
+= \frac{1}{2\pi \cdot 100\mathrm{kHz} \cdot |\mathrm{Im}|}$$
 
 电容值常数（代码中使用）：
 
-$$C(\text{pF}) = \frac{1591549}{|\mathrm{Im}(\Omega)|}$$
+$$C(\mathrm{pF}) = \frac{1591549}{|\mathrm{Im}(\Omega)|}$$
 
 损耗角正切：
 
@@ -99,11 +99,11 @@ $$D = \frac{\mathrm{Re}(Z_{DUT})}{|\mathrm{Im}(Z_{DUT})|}$$
 ### 4.2 电感（$\mathrm{Im} \gt 0$）
 
 $$L = \frac{\mathrm{Im}(Z_{DUT})}{\omega}
-= \frac{\mathrm{Im}(Z_{DUT})}{2\pi \cdot 100\text{kHz}}$$
+= \frac{\mathrm{Im}(Z_{DUT})}{2\pi \cdot 100\mathrm{kHz}}$$
 
 电感值常数（代码中使用）：
 
-$$L(\text{nH}) = 1591.55 \times \mathrm{Im}(\Omega)$$
+$$L(\mathrm{nH}) = 1591.55 \times \mathrm{Im}(\Omega)$$
 
 品质因数：
 

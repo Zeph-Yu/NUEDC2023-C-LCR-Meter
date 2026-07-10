@@ -8,7 +8,7 @@
 
 ## 〇、前置概念：什么是锁相放大器？
 
-假设你需要测量一个 $100\,\text{kHz}$ 的微弱信号，但它的幅值只有几 mV，周围布满了各种频率的噪声。普通 ADC 直接采样根本看不到它。
+假设你需要测量一个 $100\,\mathrm{kHz}$ 的微弱信号，但它的幅值只有几 mV，周围布满了各种频率的噪声。普通 ADC 直接采样根本看不到它。
 
 锁相放大器（Lock-In Amplifier）的思路很巧妙——**只对参考频率的信号敏感，其他频率一律忽视**：
 
@@ -40,7 +40,7 @@ $$x(t) = A \cos(\omega t + \phi)$$
 其中：
 
 - $A$ — 信号幅值
-- $\omega = 2\pi f$ — 角频率（本例中 $f = 100\,\text{kHz}$）
+- $\omega = 2\pi f$ — 角频率（本例中 $f = 100\,\mathrm{kHz}$）
 - $\phi$ — 相位
 
 **目标**：从 $x(t)$ 中提取 $A$ 和 $\phi$。
@@ -153,9 +153,9 @@ $$Q'(t) = \frac{A}{2}\sin\phi - \frac{A}{2}\sin(2\omega t + \phi)$$
 
 低通滤波器（LPF）去除 $2\omega$ 分量，保留直流：
 
-$$I = \text{LPF}(I') = \frac{A}{2}\cos\phi$$
+$$I = \mathrm{LPF}(I') = \frac{A}{2}\cos\phi$$
 
-$$Q = \text{LPF}(Q') = \frac{A}{2}\sin\phi$$
+$$Q = \mathrm{LPF}(Q') = \frac{A}{2}\sin\phi$$
 
 ---
 
@@ -165,7 +165,7 @@ $$Q = \text{LPF}(Q') = \frac{A}{2}\sin\phi$$
 
 设 ADC 采样得到离散序列：
 
-$$x[n] = A \cos(\omega n T_s + \phi), \quad T_s = \frac{1}{4\,\text{MHz}}$$
+$$x[n] = A \cos(\omega n T_s + \phi), \quad T_s = \frac{1}{4\,\mathrm{MHz}}$$
 
 I 路计算：
 
@@ -183,7 +183,7 @@ $$\frac{1}{N} \sum_{n=0}^{N-1} \cos(2\omega n T_s + \phi) = 0$$
 
 而直流项保持不变。因此 **求平均本身就是一种简单而有效的低通滤波**。
 
-> 在你的代码中，归一化因子为 $N_\text{cycles} \times N/2$（而非 $1/N$），目的是让结果直接代表信号幅值（单位 V）。
+> 在你的代码中，归一化因子为 $N_\mathrm{cycles} \times N/2$（而非 $1/N$），目的是让结果直接代表信号幅值（单位 V）。
 
 ---
 
@@ -211,8 +211,9 @@ $$\phi = \mathrm{atan2}(Q,\; I)$$
 
 你的系统分别对两个 ADC 通道做 IQ 解调：
 
-$$(I_x, Q_x) \quad\text{— 待测支路电压 } V_x$$
-$$(I_r, Q_r) \quad\text{— 参考电阻电压 } V_r$$
+$$(I_x, Q_x)$$ —— 待测支路电压 $V_x$
+
+$$(I_r, Q_r)$$ —— 参考电阻电压 $V_r$
 
 每路得到复数电压：
 
@@ -222,13 +223,13 @@ $$V_r = I_r + j Q_r = \frac{A_r}{2}(\cos\phi_r + j\sin\phi_r)$$
 
 利用复阻抗公式：
 
-$$Z_x = R_{\text{ref}} \cdot \frac{V_x}{V_r} = R_{\text{ref}} \cdot \frac{I_x + j Q_x}{I_r + j Q_r}$$
+$$Z_x = R_{\mathrm{ref}} \cdot \frac{V_x}{V_r} = R_{\mathrm{ref}} \cdot \frac{I_x + j Q_x}{I_r + j Q_r}$$
 
 展开得实部和虚部：
 
-$$\mathrm{Re}(Z_x) = R_{\text{ref}} \cdot \frac{I_x I_r + Q_x Q_r}{I_r^2 + Q_r^2}$$
+$$\mathrm{Re}(Z_x) = R_{\mathrm{ref}} \cdot \frac{I_x I_r + Q_x Q_r}{I_r^2 + Q_r^2}$$
 
-$$\mathrm{Im}(Z_x) = R_{\text{ref}} \cdot \frac{Q_x I_r - I_x Q_r}{I_r^2 + Q_r^2}$$
+$$\mathrm{Im}(Z_x) = R_{\mathrm{ref}} \cdot \frac{Q_x I_r - I_x Q_r}{I_r^2 + Q_r^2}$$
 
 > 注：实际代码中采用 $ad - bc$ 形式（$a=I_x,\; b=Q_x,\; c=I_r,\; d=Q_r$），
 > 感性 Im 为正，容性 Im 为负。
