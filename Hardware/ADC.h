@@ -5,7 +5,7 @@
 #include "IQDemod.h"
 #include "System_State.h"
 
-#define ADC_BUF_SIZE   (IQ_SKIP + IQ_SAMPLES)  // 40 + 400 = 440
+#define ADC_BUF_SIZE   (IQ_SKIP + IQ_SAMPLES)  // 40 + 4000 = 4040
 
 extern uint16_t UR_data[ADC_BUF_SIZE];
 extern uint16_t UX_data[ADC_BUF_SIZE];
