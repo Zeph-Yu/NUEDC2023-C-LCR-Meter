@@ -67,7 +67,6 @@ LCR_Meter/
 │   ├── ADC.h/c              双 ADC DMA 驱动
 │   ├── Key.h/c              按键驱动 (定时器轮询)
 │   └── oled.h/c/oledfont.h  OLED 驱动
-└── targetConfigs/           XDS110 调试配置
 
 docs/
 ├── lock-in-amplifier-theory.md    数字锁相放大器原理

@@ -51,8 +51,8 @@ $$x(t) = A \cos(\omega t + \phi)$$
 
 产生两路与激励同频的正交参考信号：
 
-- **I 路（同相）**：$\cos(\omega t)$
-- **Q 路（正交）**：$-\sin(\omega t)$
+- **I 路（同相）**： $\cos(\omega t)$
+- **Q 路（正交）**： $-\sin(\omega t)$
 
 ```
            cos(ωt)
@@ -149,7 +149,7 @@ $$Q'(t) = \frac{A}{2}\sin\phi - \frac{A}{2}\sin(2\omega t + \phi)$$
  0 Hz          2f (200kHz)
 ```
 
-直流分量是我们需要的，$2\omega$ 分量是乘法副产品。
+直流分量是我们需要的， $2\omega$ 分量是乘法副产品。
 
 低通滤波器（LPF）去除 $2\omega$ 分量，保留直流：
 
@@ -236,11 +236,11 @@ $$\mathrm{Im}(Z_x) = R_{\mathrm{ref}} \cdot \frac{Q_x I_r - I_x Q_r}{I_r^2 + Q_r
 
 由复阻抗 $Z_x$ 可计算：
 
-**电容**（容性，$\mathrm{Im} \lt 0$）：
+**电容**（容性， $\mathrm{Im} \lt 0$）：
 
 $$C = \frac{1}{\omega \cdot |\mathrm{Im}(Z_x)|}$$
 
-**电感**（感性，$\mathrm{Im} \gt 0$）：
+**电感**（感性， $\mathrm{Im} \gt 0$）：
 
 $$L = \frac{|\mathrm{Im}(Z_x)|}{\omega}$$
 

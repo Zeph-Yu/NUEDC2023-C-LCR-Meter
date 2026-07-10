@@ -39,7 +39,7 @@ $$I = \frac{2}{N} \sum_{n=0}^{N-1} v[n] \cdot \cos\!\left(2\pi \frac{n}{N_0}\rig
 
 $$Q = \frac{2}{N} \sum_{n=0}^{N-1} v[n] \cdot \sin\!\left(2\pi \frac{n}{N_0}\right)$$
 
-其中 $N_0 = 40$（每激励周期采样点数），$N$ 为参与解调的总采样点数。
+其中 $N_0 = 40$（每激励周期采样点数）， $N$ 为参与解调的总采样点数。
 
 解调结果 $I$、$Q$ 直接代表 100kHz 分量的同相和正交幅值（单位 V）：
 
@@ -189,7 +189,7 @@ $$Q = \frac{\mathrm{Im}(Z_{DUT})}{\mathrm{Re}(Z_{DUT})}$$
 ### 关于 Rs / R_ref 选值
 
 - Rs 过大 → $\omega L / R_s$ 很小 → 相位角极小 → Im 信噪比差
-- Rs = R_ref 时，短路态 Vx = Vr，$ad - bc$ 数值脆弱，但正常工作态（DUT 接入）相位角最大
+- Rs = R_ref 时，短路态 Vx = Vr， $ad - bc$ 数值脆弱，但正常工作态（DUT 接入）相位角最大
 - 本项目电感版最终选用 Rs = R_ref = 51Ω，相位角从 2.2° 提升至 36.8°（60.7µH）
 
 ---
@@ -209,14 +209,6 @@ firmware/
 │   └── oledfont.h           字库
 └── targetConfigs/           MSPM0G3507 调试配置
 ```
-
----
-
-## 10. 参考文献
-
-- Keysight Impedance Measurement Handbook — 自平衡电桥原理
-- 数字锁相放大器原理 — IQ 正交解调的数学基础
-- 开源 LCR 表项目（Elektor LCR Meter, RLC-2 等）
 
 ---
 
