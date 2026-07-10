@@ -42,6 +42,7 @@ syscfg/ti_msp_dl_config.d
 front_workplace.theia-workspace
 
 # Ignore tool/build directories
+.clangd
 .clangd/
 targetConfigs/
 
