@@ -235,11 +235,11 @@ $$\mathrm{Im}(Z_x) = R_{\text{ref}} \cdot \frac{Q_x I_r - I_x Q_r}{I_r^2 + Q_r^2
 
 由复阻抗 $Z_x$ 可计算：
 
-**电容**（容性，$\mathrm{Im} < 0$）：
+**电容**（容性，$\mathrm{Im} \lt 0$）：
 
 $$C = \frac{1}{\omega \cdot |\mathrm{Im}(Z_x)|}$$
 
-**电感**（感性，$\mathrm{Im} > 0$）：
+**电感**（感性，$\mathrm{Im} \gt 0$）：
 
 $$L = \frac{|\mathrm{Im}(Z_x)|}{\omega}$$
 

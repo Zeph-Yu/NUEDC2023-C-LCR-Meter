@@ -76,14 +76,14 @@ $$\begin{aligned}
 \mathrm{Im}(Z_{DUT}) &= \mathrm{Im}(Z_{total})
 \end{aligned}$$
 
-> **符号约定**：采用 $ad - bc$ 形式，感性元件 $\mathrm{Im} > 0$，容性元件 $\mathrm{Im} < 0$。
+> **符号约定**：采用 $ad - bc$ 形式，感性元件 $\mathrm{Im} \gt 0$，容性元件 $\mathrm{Im} \lt 0$。
 > 这一约定取决于 IQ 解调时参考信号的相位定义，不同实现可能符号相反。
 
 ---
 
 ## 4. 从阻抗到元件值
 
-### 4.1 电容（$\mathrm{Im} < 0$）
+### 4.1 电容（$\mathrm{Im} \lt 0$）
 
 $$C = \frac{1}{\omega \cdot |\mathrm{Im}(Z_{DUT})|}
 = \frac{1}{2\pi \cdot 100\text{kHz} \cdot |\mathrm{Im}|}$$
@@ -96,7 +96,7 @@ $$C(\text{pF}) = \frac{1591549}{|\mathrm{Im}(\Omega)|}$$
 
 $$D = \frac{\mathrm{Re}(Z_{DUT})}{|\mathrm{Im}(Z_{DUT})|}$$
 
-### 4.2 电感（$\mathrm{Im} > 0$）
+### 4.2 电感（$\mathrm{Im} \gt 0$）
 
 $$L = \frac{\mathrm{Im}(Z_{DUT})}{\omega}
 = \frac{\mathrm{Im}(Z_{DUT})}{2\pi \cdot 100\text{kHz}}$$
