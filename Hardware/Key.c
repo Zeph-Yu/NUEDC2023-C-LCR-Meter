@@ -2,8 +2,8 @@
 
 Key_t Keys[KEY_NUM_KEYS] = 
 {
-    {GPIOA, KEY_PA_18_PIN, KEY1_TRIGGER_LEVEL},
-    {GPIOB, KEY_PB_21_PIN, KEY2_TRIGGER_LEVEL}   
+    {GPIOA, KEY_PA18_PIN, KEY1_TRIGGER_LEVEL},
+    {GPIOB, KEY_PB21_PIN, KEY2_TRIGGER_LEVEL}   
 };
 
 static uint8_t ReadKeyState(uint8_t keyIndex)

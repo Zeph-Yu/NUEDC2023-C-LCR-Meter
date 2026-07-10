@@ -91,18 +91,8 @@ $$I'(t) = \frac{A}{2}\big[\cos\phi + \cos(2\omega t + \phi)\big]$$
 | 项 | 表达式 | 含义 |
 |----|--------|------|
 | 直流项 | $\frac{A}{2}\cos\phi$ | **有用信号**（0 Hz） |
-| 二倍频项 | $\frac{A}{2}\cos(2\omega t + \phi)$ | 乘法产生的高频（$2\omega$） |
+| 二倍频项 | $\frac{A}{2}\cos(2\omega t + \phi)$ | 乘法产生的高频（$ 2\omega $） |
 
-```
- I'(t)
-  ↑
-  │────────────────
-  │    DC = (A/2)·cosφ
-  │
-  │  /\/\/\/\/\/\/\
-  │  2ω 分量
-  └──────────────────→ t
-```
 
 ---
 
@@ -165,7 +155,7 @@ $$Q = \mathrm{LPF}(Q') = \frac{A}{2}\sin\phi$$
 
 设 ADC 采样得到离散序列：
 
-$$x[n] = A \cos(\omega n T_s + \phi), \quad T_s = \frac{1}{4\,\mathrm{MHz}}$$
+$$x[n] = A \cos(\omega n T_s + \phi), \quad T_s = \frac{1}{4\, \mathrm{MHz}}$$
 
 I 路计算：
 
