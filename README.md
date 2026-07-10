@@ -87,6 +87,7 @@ docs/
 
 - **IDE**: Code Composer Studio Theia (TI)
 - **SDK**: mspm0_sdk_2_09_00_01
+- **SysConfig**: 1.25.0
 - **编译器**: TI ARM Clang
 - **调试器**: XDS110
 
