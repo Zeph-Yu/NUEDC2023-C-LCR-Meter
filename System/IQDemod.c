@@ -58,7 +58,7 @@ IQResult IQ_Demodulate(const uint16_t data[], int count)
 // 复阻抗计算
 //   Zx = R_ref × (Ix + jQx) / (Ir + jQr) - Rs
 //   Re = R_ref × (Ix·Ir + Qx·Qr) / (Ir² + Qr²) - Rs
-//   Im = R_ref × (Qx·Ir - Ix·Qr) / (Ir² + Qr²)   ← 感性为正, 容性为负
+//   Im = R_ref × (Ix·Qr - Qx·Ir) / (Ir² + Qr²)   ← ad-bc, 感性为正, 容性为负
 //   详细推导见 docs/lock-in-amplifier-theory.md
 // ===================================================================
 ZResult IQ_CalcImpedance(double Ix, double Qx, double Ir, double Qr)
@@ -73,7 +73,7 @@ ZResult IQ_CalcImpedance(double Ix, double Qx, double Ir, double Qr)
     }
 
     double re_total = R_REF * (Ix * Ir + Qx * Qr) / den;
-    double im_total = R_REF * (Qx * Ir - Ix * Qr) / den;
+    double im_total = R_REF * (Ix * Qr - Qx * Ir) / den;  // ad - bc, 感性为正
 
     result.real = re_total - R_S;   // 去掉串联电阻
     result.imag = im_total;         // Rs 不影响虚部
