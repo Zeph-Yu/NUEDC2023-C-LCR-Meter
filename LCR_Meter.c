@@ -12,6 +12,7 @@ int main(void)
     // 初始化 OLED 屏幕
     OLED_Init();
     OLED_Clear();
+    DDS_Init();
     // 使能模块中断
     NVIC_EnableIRQ(ADC_UR_INST_INT_IRQN);
     NVIC_EnableIRQ(ADC_UX_INST_INT_IRQN);
@@ -25,7 +26,7 @@ int main(void)
         switch(state)
         {
         case STATE_IDLE : state_idle(); break;
-        //case STATE_GENEXCITATION : state_genexcitation(); break;
+        case STATE_GENEXCITATION : state_genexcitation(); break;
         case STATE_STABLE_WAIT : state_stable_wait(); break;
         case STATE_INIT_SAMPLING : state_init_sampling(); break;
         case STATE_SAMPLING : state_sampling(); break;

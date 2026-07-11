@@ -23,7 +23,12 @@ void state_idle(void)
 
 void state_genexcitation(void)
 {
-
+    OLED_Clear();
+    OLED_Display_GB2312_string(0, 0, "DDS Gen 100kHz");
+    DDS_GenExcitation();
+    OLED_Display_GB2312_string(0, 2, "Back to IDLE");
+    delay_cycles(CPUCLK_FREQ);  // 显示 1 秒确认
+    state = STATE_IDLE;
 }
 
 void state_stable_wait(void)
@@ -132,9 +137,9 @@ void state_showresult(void)
     }
 
     // DEBUG: Z 实部虚部（始终显示）
-    int32_t r = (int32_t)Z_Data.real;
-    int32_t i = (int32_t)Z_Data.imag;
-    snprintf(message, sizeof(message), "Re:%ld Im:%ld", (long)r, (long)i);
+    float r = (float)Z_Data.real;
+    float i = (float)Z_Data.imag;
+    snprintf(message, sizeof(message), "Re:%.2f Im:%.2f", r, i);
     OLED_Display_GB2312_string(0, 4, message);
 
     state = STATE_STABLE_WAIT;

@@ -6,6 +6,7 @@
 #include "oled.h"
 #include "ADC.h"
 #include "IQDemod.h"
+#include "DDS.h"
 
 typedef enum
 {
@@ -28,6 +29,7 @@ extern CResult C_Data;
 extern LResult L_Data;
 
 void state_idle(void);
+void state_genexcitation(void);
 void state_stable_wait(void);
 void state_init_sampling(void);
 void state_sampling(void);

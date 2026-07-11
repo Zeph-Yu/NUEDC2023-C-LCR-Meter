@@ -23,8 +23,8 @@
 #define R_S            0.0     // 通过标定修正
 
 // 短路标定偏置 (Ω) — 短路 DUT 端子测得后填入
-#define Z_RE_OFFSET    51.0
-#define Z_IM_OFFSET    0.0
+#define Z_RE_OFFSET    51.41   // 实部残差 [Rs=R_ref=51Ω]
+#define Z_IM_OFFSET    0.33    // 虚部残差
 
 // ===== 数据类型 =====
 

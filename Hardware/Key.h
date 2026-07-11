@@ -7,7 +7,7 @@
 #define KEY_PRESSED 			1
 #define KEY_UNPRESSED 			0
 
-#define KEY1_TRIGGER_LEVEL		1 //PA_18高电平有效
+#define KEY1_TRIGGER_LEVEL		1 //PA_18高电平有效 (硬件下拉)
 #define KEY2_TRIGGER_LEVEL		0 //PB_21低电平有效
 
 #define KEY_NUM_KEYS			2

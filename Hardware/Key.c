@@ -8,8 +8,11 @@ Key_t Keys[KEY_NUM_KEYS] =
 
 static uint8_t ReadKeyState(uint8_t keyIndex)
 {
-    return (DL_GPIO_readPins(Keys[keyIndex].Port, Keys[keyIndex].Pins) 
-    == Keys[keyIndex].TriggerLevel) ? KEY_PRESSED : KEY_UNPRESSED;
+    //3507读引脚的函数返回值是位掩码（32位寄存器），需要将其归一化为0或1
+    //直接使用返回值会导致高电平有效的按键无法被正常读取
+    uint32_t pins = DL_GPIO_readPins(Keys[keyIndex].Port, Keys[keyIndex].Pins);
+    uint8_t level = (pins != 0) ? 1 : 0;  // 位掩码归一化为 0 或 1
+    return (level == Keys[keyIndex].TriggerLevel) ? KEY_PRESSED : KEY_UNPRESSED;
 }
 
 void Key_Tick(void)
